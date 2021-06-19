@@ -1,9 +1,9 @@
 <template>
-  <q-layout view="hHh Lpr lff" container style="height: 300px" class="shadow-2 rounded-borders">
+  <q-layout view="hHh Lpr lff" class="shadow-2 rounded-borders">
     <q-header elevated class="bg-black">
       <q-toolbar>
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
-        <q-toolbar-title>Header</q-toolbar-title>
+        <q-toolbar-title>Cadastra-Re</q-toolbar-title>
       </q-toolbar>
     </q-header>
 

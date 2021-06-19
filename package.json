@@ -2,7 +2,7 @@
   "name": "sistema-consultorio-frontend",
   "version": "0.0.1",
   "description": "sistema de cadastro de pacientes consultório",
-  "productName": "CadastrApp",
+  "productName": "Cadastra-Re",
   "author": "kojji <fernandokojiyama@gmail.com>",
   "private": true,
   "scripts": {
@@ -13,7 +13,8 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "quasar": "^1.0.0"
+    "quasar": "^1.0.0",
+    "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",
