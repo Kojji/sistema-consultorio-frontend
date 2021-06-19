@@ -1,3 +1,7 @@
-export function loadingLayout (state, userData) {
+export function setLoadingLayout (state, userData) {
   state.loadingLayout = userData
+}
+
+export function setDrawer (state, userData) {
+  state.drawer = userData
 }

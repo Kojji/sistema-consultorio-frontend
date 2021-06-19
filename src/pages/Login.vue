@@ -110,7 +110,7 @@ export default {
             // this.$store.dispatch("users/updateConnectStatus", { token: res.data.token, status: true });
             // this.$store.commit("signedin/signed", true);
             // this.$store.commit("signedin/token", res.data.token);
-            // this.$store.commit("login/user", res.data.user);
+            this.$store.commit('login/user', res.data.user)
             // if (!res.data.user.confirmed) {
             //   this.$store.commit("login/newUser", true);
             // }

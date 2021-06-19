@@ -1,13 +1,14 @@
 <template>
   <div>
     <loading-page v-if="loadingLayout" />
-    <q-layout view="hHh Lpr lff" class="shadow-2 rounded-borders">
-      <q-header elevated class="bg-black">
+    <q-layout view="hHh Lpr lff" v-else class="shadow-2 rounded-borders">
+      <drop-down-menu class="no_print" />
+      <!-- <q-header elevated class="bg-black">
         <q-toolbar>
           <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
           <q-toolbar-title>Cadastra-Re</q-toolbar-title>
         </q-toolbar>
-      </q-header>
+      </q-header> -->
 
       <q-drawer
         v-model="drawer"
@@ -50,9 +51,12 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'MainLayout',
+  components: {
+    loadingPage: () => import('src/components/utils/loading-page.vue'),
+    dropDownMenu: () => import('src/components/utils/topBarDropDown.vue')
+  },
   data () {
     return {
-      drawer: false,
       miniState: true
     }
   },
@@ -68,7 +72,7 @@ export default {
             // this.$store.dispatch("users/updateConnectStatus", { token: res.data.token, status: true });
             // this.$store.commit("signedin/signed", true);
             // this.$store.commit("signedin/token", res.data.token);
-            // this.$store.commit("login/user", res.data.user);
+            this.$store.commit('login/user', res.data.user)
             this.$store.commit('login/setColunas', res.data.menus)
             // this.$store.commit('login/redirect', '/usuarios');
             // this.$store.commit('login/redirect', res.data.redirect);
@@ -104,10 +108,18 @@ export default {
     ...mapGetters('login', ['getColunas']),
     loadingLayout: {
       get () {
-        return this.$store.getters['utils/loadingLayout']
+        return this.$store.getters['utils/getLoadingLayout']
       },
       set (value) {
-        this.$store.commit('utils/loadingLayout', value)
+        this.$store.commit('utils/setLoadingLayout', value)
+      }
+    },
+    drawer: {
+      get () {
+        return this.$store.getters['utils/getDrawer']
+      },
+      set (value) {
+        this.$store.commit('utils/setDrawer', value)
       }
     }
   },

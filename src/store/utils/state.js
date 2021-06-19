@@ -1,5 +1,6 @@
 export default function () {
   return {
-    loadingLayout: false
+    loadingLayout: false,
+    drawer: false
   }
 }
