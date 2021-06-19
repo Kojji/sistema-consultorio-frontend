@@ -77,7 +77,7 @@
 export default {
   name: 'Login',
   meta: {
-    title: 'Casatra-Re',
+    title: 'Casdatra-Re',
     titleTemplate: title => `${title} - Entre na sua Conta`
   },
   // beforeCreate () {
@@ -105,6 +105,7 @@ export default {
         .then(res => {
           if (res.data.success) {
             this.$q.cookies.set('token', res.data.token)
+            this.$store.commit('login/setColunas', res.data.menus)
             // this.$store.dispatch("chat/connect", { socket: this.$socket, token: res.data.token });
             // this.$store.dispatch("users/updateConnectStatus", { token: res.data.token, status: true });
             // this.$store.commit("signedin/signed", true);
@@ -113,7 +114,7 @@ export default {
             // if (!res.data.user.confirmed) {
             //   this.$store.commit("login/newUser", true);
             // }
-            this.$router.push('/')
+            this.$router.push(res.data.redirect)
           } else {
             // this.$store.commit('signedin/signed', false);
             // this.$store.commit("chat/socket", {});

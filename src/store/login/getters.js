@@ -10,7 +10,7 @@ export function apps (state) {
   return state.apps
 }
 
-export function colunas (state) {
+export function getColunas (state) {
   return state.colunas
 }
 

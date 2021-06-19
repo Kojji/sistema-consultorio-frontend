@@ -11,7 +11,7 @@ export function apps (state, userData) {
   state.apps = userData
 }
 
-export function colunas (state, userData) {
+export function setColunas (state, userData) {
   state.colunas = userData
 }
 
