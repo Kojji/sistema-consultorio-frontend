@@ -8,7 +8,7 @@
 export default {
   name: 'Forms',
   meta: {
-    title: 'Casdatra-Re',
+    title: 'Cadastra-Re',
     titleTemplate: title => `${title} - Fichas de pacientes`
   }
 }

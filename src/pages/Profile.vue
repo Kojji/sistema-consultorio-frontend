@@ -3,11 +3,12 @@
     <div class="col-12 col-md-6 offset-md-3">
       <q-card>
         <q-item>
-          <q-item-section avatar @mouseenter="showCamera = true, showPhoto = false" @mouseleave="showCamera = false, showPhoto = true">
+          <!-- <q-item-section avatar @mouseenter="showCamera = true, showPhoto = false" @mouseleave="showCamera = false, showPhoto = true"> -->
+          <q-item-section avatar>
             <q-avatar :color="!user.photo ? 'secondary text-white' : ''">
-              <img v-show="showPhoto" contain v-if="user.photo" :src="user.photo" />
-              <span v-show="showPhoto" v-else>{{ sigla(user.name) }}</span>
-              <span v-show="showCamera">
+              <img contain v-if="user.photo" :src="user.photo" />
+              <span v-else>{{ sigla(user.name) }}</span>
+              <!-- <span v-show="showCamera">
                 <q-btn :loading="uploadingPhoto" @click="$refs.filePicker.pickFiles()" flat dense round icon="mdi-camera-flip">
                   <q-tooltip
                     :anchor="!$q.screen.lt.md ? 'bottom middle' : 'top middle'"
@@ -18,7 +19,7 @@
                   >{{ !!user.photo ? 'Trocar Foto' : 'Adicionar Foto' }}</q-tooltip>
                 </q-btn>
                 <q-file @input="file => uploadImage(file)" style="display:none" ref="filePicker" accept=".jpg, image/*" v-model="file" label="Standard" />
-              </span>
+              </span> -->
             </q-avatar>
           </q-item-section>
 
@@ -210,7 +211,7 @@
 export default {
   name: 'Profile',
   meta: {
-    title: 'Casdatra-Re',
+    title: 'Cadastra-Re',
     titleTemplate: title => `${title} - Perfil`
   },
   data: () => ({

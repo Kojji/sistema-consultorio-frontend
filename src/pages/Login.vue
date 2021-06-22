@@ -3,7 +3,7 @@
     <div id="Login" :style="$q.screen.lt.md ? '' : 'display: table-cell; vertical-align: middle;'">
       <div class="q-pa-md">
         <div class="row">
-          <div class="col-12 col-md-4 offset-md-7" :class="!$q.screen.lt.md ? 'offset-md-4' : 'offset-md-4'">
+          <div class="col-12 col-md-5 offset-md-6" :class="!$q.screen.lt.md ? 'offset-md-4' : 'offset-md-4'">
             <q-card class="bg-white">
               <q-card-section class="text-center">
               </q-card-section>

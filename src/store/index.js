@@ -4,6 +4,7 @@ import createPersistedState from 'vuex-persistedstate'
 
 import login from './login'
 import utils from './utils'
+import registro from './registro'
 // import example from './module-example'
 
 Vue.use(Vuex)
@@ -21,7 +22,8 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       login,
-      utils
+      utils,
+      registro
     },
     plugins: [createPersistedState()],
 

@@ -21,6 +21,13 @@ export default function () {
       }
     },
     {
+      path: '/criar-conta',
+      component: () => import('src/pages/CreateAccount.vue'),
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
       path: '*',
       component: () => import('pages/Error404.vue'),
       meta: {
