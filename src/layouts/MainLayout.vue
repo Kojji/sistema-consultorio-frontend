@@ -2,7 +2,7 @@
   <div>
     <loading-page v-if="loadingLayout" />
     <q-layout view="hHh Lpr lff" v-else class="shadow-2 rounded-borders">
-      <drop-down-menu class="no_print" />
+      <dropDownMenu class="no_print" />
       <!-- <q-header elevated class="bg-black">
         <q-toolbar>
           <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
@@ -67,7 +67,7 @@ export default {
         .dispatch('login/alwaysOn')
         .then(res => {
           if (res.data.success) {
-            this.$q.cookies.set('token', res.data.token)
+            this.$q.cookies.set('token', res.data.token, { path: '/' })
             // this.$store.dispatch("chat/connect", { socket: this.$socket, token: res.data.token });
             // this.$store.dispatch("users/updateConnectStatus", { token: res.data.token, status: true });
             // this.$store.commit("signedin/signed", true);

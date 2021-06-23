@@ -1,5 +1,5 @@
 <template>
-  <div class="q-col-gutter-md row">
+  <div class="q-col-gutter-md row q-ma-xs">
     <div class="col-12">
       <q-table
         title="Usuários"
@@ -24,6 +24,7 @@
                   icon="mdi-plus-circle-outline"
                   flat
                   dense
+                  :disable="true"
                   no-caps
                   no-wrap
                 />
@@ -65,7 +66,39 @@
             </q-menu>
           </q-btn>
         </template>
+        <template v-slot:body="props">
+          <q-tr @click="openUsuario(props.row.id)" class="cursor-pointer" :props="props">
+            <q-td>
+              {{ props.row.id }}
+            </q-td>
+            <q-td>
+              <q-icon name="circle" :color="checkColor(props.row.active)" size="20px" />
+            </q-td>
+            <q-td>
+              {{ props.row.name }}
+            </q-td>
+            <q-td>
+              {{ props.row.email }}
+            </q-td>
+            <q-td>
+              {{ props.row.cpf }}
+            </q-td>
+            <q-td>
+              {{ moment(props.row.createdAt).format('DD/MM/YYYY HH:mm') + 'h' }}
+            </q-td>
+          </q-tr>
+        </template>
+        <template v-slot:bottom>
+          <div />
+        </template>
       </q-table>
+      <modal-show-usuario
+        v-if="OpenModalUser"
+        :OpenModal="OpenModalUser"
+        ref="showUsuario"
+        v-on:closeModal="OpenModalUser = false"
+        v-on:repaginate="resetPagination(), getUsers()"
+      />
     </div>
   </div>
 </template>
@@ -77,7 +110,11 @@ export default {
     title: 'Cadastra-Re',
     titleTemplate: title => `${title} - Usuários`
   },
+  components: {
+    modalShowUsuario: () => import('src/components/users/modal-show-usuario.vue')
+  },
   data: () => ({
+    OpenModalUser: false,
     loading: false,
     filterConfirmed: true,
     users: [],
@@ -91,10 +128,10 @@ export default {
         sortable: true
       },
       {
-        name: 'confirmed',
-        label: 'Status',
+        name: 'active',
+        label: 'Ativo',
         align: 'left',
-        field: row => row.confirmed,
+        field: row => row.active,
         format: val => `${val}`,
         sortable: true
       },
@@ -124,7 +161,7 @@ export default {
       },
       {
         name: 'createdAt',
-        label: 'Criado em',
+        label: 'Data de Criação',
         align: 'left',
         field: row => row.createdAt,
         format: val => `${val}`,
@@ -152,9 +189,27 @@ export default {
         label: 'Cadastros recusados',
         value: false
       }
-    ]
+    ],
+    moment: null
   }),
+  computed: {
+    userId: {
+      get () {
+        return this.$store.getters['users/getSelectedUserId']
+      },
+      set (value) {
+        this.$store.commit('users/setSelectedUserId', value)
+      }
+    }
+  },
   methods: {
+    checkColor (confirmed) {
+      if (confirmed === true) {
+        return 'positive'
+      } else {
+        return 'negative'
+      }
+    },
     getUsers () {
       this.loading = true
       this.$axios.get('/users', {
@@ -172,6 +227,11 @@ export default {
         .finally(() => {
           this.loading = false
         })
+    },
+    openUsuario (id) {
+      this.userId = id
+      this.OpenModalUser = true
+      // this.$refs.showUsuario.getUser()
     },
     resetPagination () {
       this.pagination = {
@@ -194,6 +254,10 @@ export default {
         this.getUsers()
       }
     }
+  },
+  created () {
+    this.moment = require('moment')
+    this.moment.locale('pt-BR')
   },
   mounted () {
     window.addEventListener('scroll', this.handleScroll)

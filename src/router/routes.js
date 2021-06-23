@@ -9,7 +9,7 @@ export default function () {
       children: [
         { path: '', redirect: '/fichas' },
         { path: 'fichas', component: () => import('pages/Forms.vue') },
-        { path: 'usuarios', component: () => import('pages/Users.vue') },
+        { path: 'usuarios', component: () => import('src/pages/Users.vue') },
         { path: 'perfil', component: () => import('pages/Profile.vue') }
       ]
     },

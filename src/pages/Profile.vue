@@ -98,7 +98,7 @@
                                 outlined
                                 type="password"
                                 v-model="password"
-                                label="Sua senha atual"
+                                label="Senha atual"
                               />
                             </div>
                           </div>
@@ -110,7 +110,7 @@
                             outlined
                             type="password"
                             v-model="new_password"
-                            label="Sua nova senha"
+                            label="Nova senha"
                             @input="value => countPwdRules(value)"
                           >
                             <template v-slot:append>
@@ -141,7 +141,7 @@
                             outlined
                             type="password"
                             v-model="confirm_password"
-                            label="Repita sua nova senha"
+                            label="Repita a nova senha"
                             :rules="[ checkPwd ]"
                           />
                         </div>
@@ -165,7 +165,7 @@
                                 outlined
                                 type="password"
                                 v-model="password2"
-                                label="Sua senha atual"
+                                label="Senha atual"
                               />
                             </div>
                           </div>
@@ -177,7 +177,7 @@
                                 :disable="saving"
                                 dense
                                 outlined
-                                label="Seu novo endereço de email"
+                                label="Endereço de email"
                                 v-model="usuario.email"
                               />
                             </div>

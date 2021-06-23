@@ -104,7 +104,7 @@ export default {
         })
         .then(res => {
           if (res.data.success) {
-            this.$q.cookies.set('token', res.data.token)
+            this.$q.cookies.set('token', res.data.token, { path: '/' })
             this.$store.commit('login/setColunas', res.data.menus)
             // this.$store.dispatch("chat/connect", { socket: this.$socket, token: res.data.token });
             // this.$store.dispatch("users/updateConnectStatus", { token: res.data.token, status: true });
