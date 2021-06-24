@@ -22,6 +22,7 @@
                   label="Adicionar nova ficha"
                   icon="plus"
                   flat
+                  @click="OpenModalNewFicha = true"
                   dense
                   no-caps
                   no-wrap
@@ -84,6 +85,13 @@
         v-on:closeModal="OpenModalFicha = false"
         v-on:repaginate="resetPagination(), getFichas()"
       />
+      <modalCreateFicha
+        v-if="OpenModalNewFicha"
+        :OpenModal="OpenModalNewFicha"
+        v-on:closeModal="OpenModalNewFicha = false"
+        v-on:repaginate="resetPagination(), getFichas()"
+        v-on:openModalCreatedFicha="id => openUsuario(id)"
+      />
     </div>
   </div>
 </template>
@@ -96,10 +104,12 @@ export default {
     titleTemplate: title => `${title} - Fichas de pacientes`
   },
   components: {
-    modalShowFicha: () => import('src/components/fichas/modal-show-ficha.vue')
+    modalShowFicha: () => import('src/components/fichas/modal-show-ficha.vue'),
+    modalCreateFicha: () => import('src/components/fichas/modal-nova-ficha.vue')
   },
   data: () => ({
     OpenModalFicha: false,
+    OpenModalNewFicha: false,
     loading: false,
     filterActive: true,
     fichas: [],
@@ -160,7 +170,7 @@ export default {
         value: true
       },
       {
-        label: 'Cadastros Morto',
+        label: 'Arquivo Morto',
         value: false
       }
     ]
