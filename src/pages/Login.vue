@@ -51,9 +51,18 @@
                   to="/esqueci-senha"
                   label="Esqueci minha senha"
                   flat
+                  :disable="true"
                   color="secondary"
                   no-caps
-                />
+                >
+                </q-btn>
+                <q-tooltip
+                  :anchor="!$q.screen.lt.md ? 'bottom middle' : 'top middle'"
+                  :self="!$q.screen.lt.md ? 'top middle' : 'bottom middle'"
+                  content-style="font-size: 12px"
+                  :offset="[10, 10]"
+                  content-class="bg-grey-8"
+                >Solicite diretamente com um administrador!</q-tooltip>
               <!-- <p class="text-body2 text-grey-8">Ainda não tem uma conta?</p> -->
               </q-card-section>
               <q-card-section align="center" class="q-pt-xs">

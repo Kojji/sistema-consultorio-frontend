@@ -43,7 +43,7 @@
                 </div>
                 <q-stepper-navigation>
                   <q-btn
-                    @click="$store.commit('registro/setStep', 2)"
+                    @click="$store.commit('register/setStep', 2)"
                     no-caps
                     color="positive"
                     label="Continuar"
@@ -51,7 +51,7 @@
                   </q-btn>
                 </q-stepper-navigation>
               </q-step>
-              <q-step :name="2" title="Dados de Acesso">
+              <q-step :name="2" :done="stepRegistro > 2" title="Dados de Acesso">
                 <div class="q-pa-md">
                   <div class="q-col-gutter-md row">
                     <div class="col-12">
@@ -106,7 +106,7 @@
                 </div>
                 <q-stepper-navigation>
                   <q-btn
-                    @click="$store.commit('registro/setStep', 1)"
+                    @click="$store.commit('register/setStep', 1)"
                     no-caps
                     color="secondary"
                     label="Voltar"
@@ -173,18 +173,18 @@ export default {
   computed: {
     savingRegistro: {
       get () {
-        return this.$store.getters['registro/getSaving']
+        return this.$store.getters['register/getSaving']
       },
       set (value) {
-        this.$store.commit('registro/setSaving', value)
+        this.$store.commit('register/setSaving', value)
       }
     },
     stepRegistro: {
       get () {
-        return this.$store.getters['registro/getStep']
+        return this.$store.getters['register/getStep']
       },
       set (value) {
-        this.$store.commit('registro/setStep', value)
+        this.$store.commit('register/setStep', value)
       }
     },
     isAluno () {
@@ -239,11 +239,11 @@ export default {
     finishRegister () {
       const user = JSON.parse(JSON.stringify(this.registro))
       user.password = this.new_password
-      this.$store.dispatch('registro/sendRegister', user)
+      this.$store.dispatch('register/sendRegister', user)
     }
   },
   mounted () {
-    this.$store.commit('registro/setStep', 1)
+    this.$store.commit('register/setStep', 1)
   }
 }
 </script>

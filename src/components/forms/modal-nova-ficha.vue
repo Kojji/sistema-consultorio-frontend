@@ -17,7 +17,7 @@
               <q-input dense outlined v-model="paciente.cpf" label="CPF" mask="###.###.###-##" />
             </div>
             <div class="col-6">
-              <q-input dense outlined v-model="paciente.telefone" label="Telefone" v-mask="['(##)####-####', '(##)#####-####']" />
+              <q-input dense outlined v-model="paciente.phone" label="Telefone" v-mask="['(##)####-####', '(##)#####-####']" />
             </div>
             <div class="col-12">
               <q-input dense outlined v-model="paciente.externalFile" label="Pasta" />
@@ -34,7 +34,7 @@
             dense
             outline
             color="positive"
-            label="Salvar"
+            label="Criar"
           >
             <template v-slot:loading>
               <q-spinner color="primary" size=".8em" />
@@ -62,7 +62,7 @@ export default {
     loadingSaving: false,
     paciente: {
       name: '',
-      telefone: '',
+      phone: '',
       cpf: '',
       externalFile: ''
     }
@@ -72,7 +72,7 @@ export default {
       this.loadingSaving = true
       const ficha = {
         name: this.paciente.name,
-        telefone: this.paciente.telefone,
+        phone: this.paciente.phone,
         cpf: this.paciente.cpf,
         externalFile: this.paciente.externalFile
       }

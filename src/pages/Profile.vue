@@ -7,7 +7,7 @@
           <q-item-section avatar>
             <q-avatar :color="!user.photo ? 'secondary text-white' : ''">
               <img contain v-if="user.photo" :src="user.photo" />
-              <span v-else>{{ sigla(user.name) }}</span>
+              <span class="text-accent" v-else>{{ sigla(user.name) }}</span>
               <!-- <span v-show="showCamera">
                 <q-btn :loading="uploadingPhoto" @click="$refs.filePicker.pickFiles()" flat dense round icon="mdi-camera-flip">
                   <q-tooltip
@@ -42,13 +42,13 @@
               <template v-slot:before>
                 <q-tabs
                   v-model="tab"
-                  class="text-secondary"
+                  class="text-accent"
                   no-caps
                   :vertical="$q.screen.gt.sm"
                 >
                   <q-tab class="text-left" name="infos" label="Informações" />
                   <!-- <q-tab class="text-left" name="conta" label="Conta" /> -->
-                  <q-tab class="text-left" name="acesso" label="Acesso & Segurança" />
+                  <q-tab class="text-left" name="acesso" label="Conta" />
                 </q-tabs>
               </template>
 
@@ -72,7 +72,7 @@
                           <q-input :disable="saving" outlined label="CPF" dense v-model="usuario.cpf" mask="###.###.###-##" />
                         </div>
                         <div class="col-12 text-right">
-                          <q-btn :loading="saving" @click="updateInfos" label="Salvar" no-caps no-wrap color="green" />
+                          <q-btn :loading="saving" @click="updateInfos" label="Salvar" outline no-caps no-wrap color="positive" />
                         </div>
                       </div>
                     </div>
@@ -146,7 +146,7 @@
                           />
                         </div>
                         <div class="col-12 text-right">
-                          <q-btn :loading="saving" @click="updatePassword" label="Salvar" no-caps no-wrap color="green" />
+                          <q-btn :loading="saving" outline @click="updatePassword" label="Salvar" no-caps no-wrap color="green" />
                         </div>
                       </div>
                       <div class="q-col-gutter-md row">
@@ -193,7 +193,7 @@
                           </div>
                         </div>
                         <div class="col-12 text-right">
-                          <q-btn :loading="saving" @click="updateLogin" label="Salvar" no-caps no-wrap color="green" />
+                          <q-btn :loading="saving" outline @click="updateLogin" label="Salvar" no-caps no-wrap color="green" />
                         </div>
                       </div>
                     </div>

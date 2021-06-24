@@ -3,7 +3,7 @@
     <div class="col-12">
       <q-table
         title="Fichas de Pacientes"
-        :data="fichas"
+        :data="forms"
         :columns="columns"
         no-data-label="Nenhuma ficha encontrada"
         :pagination="{
@@ -14,14 +14,13 @@
           <div class="q-table__control">
             <div class="q-table__title">
               Fichas de Pacientes
-              <p class="text-caption">Mostrando {{fichas.length}} de {{pagination.count}} {{pagination.count > 1 ? 'fichas' : 'ficha'}}.</p>
+              <p class="text-caption">Mostrando {{forms.length}} de {{pagination.count}} {{pagination.count > 1 ? 'fichas' : 'ficha'}}.</p>
               <p>
                 <q-btn
-                  class="text-grey-8"
-                  style="border: 1px dashed rgba(0, 0, 0, 0.12)"
-                  label="Adicionar nova ficha"
-                  icon="plus"
-                  flat
+                  class="text-accent q-pr-xs"
+                  label="Nova ficha"
+                  icon="add"
+                  outline
                   @click="OpenModalNewFicha = true"
                   dense
                   no-caps
@@ -33,12 +32,12 @@
           </div>
 
           <q-space />
-          <q-input outlined v-model="search" @input="searchInput" dense label="Busca" placeholder="CPF ou Nome" class="q-mr-md">
-            <!-- <template v-slot:append>
-              <q-icon v-if="search !== ''" name="close" @click="search = ''" class="cursor-pointer" />
-            </template> -->
+          <q-input outlined v-model="search" @input="searchInput" dense label="Buscar" placeholder="CPF ou Nome" class="q-mr-md">
+            <template v-slot:prepend>
+              <q-icon name="search"/>
+            </template>
           </q-input>
-          <q-btn flat no-caps no-wrap color="secondary" :label="label" class="q-ml-md">
+          <q-btn flat no-caps no-wrap :color="filterActive ? 'accent' : 'warning'" :label="label" class="q-ml-md">
             <q-menu>
               <q-list style="min-width: 100px">
                 <q-item
@@ -46,7 +45,7 @@
                   :key="'group-option-' + index"
                   clickable
                   v-close-popup
-                  :class="{'bg-red-5 text-white': label === opt.label}"
+                  :class="{'bg-secondary': label === opt.label}"
                   @click="changeFilter(opt)"
                 >
                   <q-item-section>{{opt.label}}</q-item-section>
@@ -67,7 +66,7 @@
               {{ props.row.externalFile }}
             </q-td>
             <q-td>
-              {{ props.row.telefone }}
+              {{ props.row.phone }}
             </q-td>
             <q-td>
               {{ props.row.cpf }}
@@ -83,13 +82,13 @@
         :OpenModal="OpenModalFicha"
         ref="showUsuario"
         v-on:closeModal="OpenModalFicha = false"
-        v-on:repaginate="resetPagination(), getFichas()"
+        v-on:repaginate="resetPagination(), getForms()"
       />
       <modalCreateFicha
         v-if="OpenModalNewFicha"
         :OpenModal="OpenModalNewFicha"
         v-on:closeModal="OpenModalNewFicha = false"
-        v-on:repaginate="resetPagination(), getFichas()"
+        v-on:repaginate="resetPagination(), getForms()"
         v-on:openModalCreatedFicha="id => openUsuario(id)"
       />
     </div>
@@ -104,15 +103,15 @@ export default {
     titleTemplate: title => `${title} - Fichas de pacientes`
   },
   components: {
-    modalShowFicha: () => import('src/components/fichas/modal-show-ficha.vue'),
-    modalCreateFicha: () => import('src/components/fichas/modal-nova-ficha.vue')
+    modalShowFicha: () => import('src/components/forms/modal-show-ficha.vue'),
+    modalCreateFicha: () => import('src/components/forms/modal-nova-ficha.vue')
   },
   data: () => ({
     OpenModalFicha: false,
     OpenModalNewFicha: false,
     loading: false,
     filterActive: true,
-    fichas: [],
+    forms: [],
     search: '',
     columns: [
       {
@@ -140,10 +139,10 @@ export default {
         sortable: false
       },
       {
-        name: 'telefone',
+        name: 'phone',
         label: 'Telefone',
         align: 'left',
-        field: row => row.telefone,
+        field: row => row.phone,
         format: val => `${val}`,
         sortable: true
       },
@@ -178,19 +177,19 @@ export default {
   computed: {
     userId: {
       get () {
-        return this.$store.getters['fichas/getSelectedUserId']
+        return this.$store.getters['forms/getSelectedUserId']
       },
       set (value) {
-        this.$store.commit('fichas/setSelectedUserId', value)
+        this.$store.commit('forms/setSelectedUserId', value)
       }
     }
   },
   methods: {
     searchInput () {
       this.resetPagination()
-      this.getFichas()
+      this.getForms()
     },
-    getFichas () {
+    getForms () {
       this.loading = true
       this.$axios.get('/patients', {
         params: {
@@ -202,9 +201,9 @@ export default {
         .then((res) => {
           if (res.data.success) {
             if (this.pagination.page === 1) {
-              this.fichas = res.data.patients
+              this.forms = res.data.patients
             } else {
-              this.fichas = this.fichas.concat(res.data.patients)
+              this.forms = this.forms.concat(res.data.patients)
             }
             this.pagination = res.data.pagination
           }
@@ -232,18 +231,18 @@ export default {
       this.label = opt.label
       this.filterActive = opt.value
       this.resetPagination()
-      this.getFichas()
+      this.getForms()
     },
     handleScroll () {
       if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        this.getFichas()
+        this.getForms()
       }
     }
   },
   mounted () {
     window.addEventListener('scroll', this.handleScroll)
     this.resetPagination()
-    this.getFichas()
+    this.getForms()
   },
   beforeRouteLeave (to, from, next) {
     window.removeEventListener('scroll', this.handleScroll)

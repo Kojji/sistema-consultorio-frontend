@@ -18,10 +18,10 @@
               <p class="text-caption">Mostrando {{users.length}} de {{pagination.count}} {{pagination.count > 1 ? 'usuários' : 'usuário'}}.</p>
               <p>
                 <q-btn
-                  class="text-grey-8"
+                  class="text-grey-8 q-pr-xs"
                   style="border: 1px dashed rgba(0, 0, 0, 0.12)"
-                  label="Adicionar novo Usuário"
-                  icon="mdi-plus-circle-outline"
+                  label="Novo Usuário"
+                  icon="add"
                   flat
                   dense
                   :disable="true"
@@ -49,7 +49,7 @@
             style="min-width: 150px"
           /> -->
 
-          <q-btn flat no-caps no-wrap color="secondary" :label="label" class="q-ml-md">
+          <q-btn flat no-caps no-wrap color="accent" :label="label" class="q-ml-md">
             <q-menu>
               <q-list style="min-width: 100px">
                 <q-item
@@ -57,7 +57,7 @@
                   :key="'group-option-' + index"
                   clickable
                   v-close-popup
-                  :class="{'bg-red-5 text-white': label === opt.label}"
+                  :class="{'bg-secondary': label === opt.label}"
                   @click="changeFilter(opt)"
                 >
                   <q-item-section>{{opt.label}}</q-item-section>
@@ -72,7 +72,15 @@
               {{ props.row.id }}
             </q-td>
             <q-td>
-              <q-icon name="circle" :color="checkColor(props.row.active)" size="20px" />
+              <q-icon name="circle" :color="checkColor(props.row.active)" size="20px" >
+                <q-tooltip
+                  :anchor="!$q.screen.lt.md ? 'bottom middle' : 'top middle'"
+                  :self="!$q.screen.lt.md ? 'top middle' : 'bottom middle'"
+                  content-style="font-size: 12px"
+                  :offset="[10, 10]"
+                  content-class="bg-grey-8"
+                >{{ props.row.active ? 'Usuário Ativo' : 'Usuário Inativo'}}</q-tooltip>
+              </q-icon>
             </q-td>
             <q-td>
               {{ props.row.name }}

@@ -21,16 +21,16 @@
         :width="200"
         :breakpoint="500"
         bordered
-        content-class="bg-grey-3"
+        content-class="bg-grey-2"
       >
         <q-scroll-area class="fit">
           <q-list padding>
             <q-item v-for="icon in getColunas" :key="icon.label" clickable v-ripple :to="icon.url">
               <q-item-section avatar>
-                <q-icon :name="icon.icon" />
+                <q-icon color="primary" :name="icon.icon" />
               </q-item-section>
 
-              <q-item-section>
+              <q-item-section class="text-primary">
               {{ icon.label }}
               </q-item-section>
             </q-item>

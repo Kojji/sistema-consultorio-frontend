@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-header elevated class="bg-black">
+    <q-header elevated class="bg-primary">
       <q-toolbar>
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
         <q-toolbar-title>Cadastra-Re</q-toolbar-title>
@@ -14,109 +14,13 @@
           <template v-slot:label>
             <q-avatar :color="!user.photo ? 'secondary' : null">
               <img v-if="user.photo" :src="user.photo">
-              <span v-else>{{ sigla(user.name) }}</span>
+              <span class="text-accent" v-else>{{ sigla(user.name) }}</span>
             </q-avatar>
           </template>
           <menu-drawer />
         </q-btn-dropdown>
       </q-toolbar>
     </q-header>
-    <!-- <q-header
-      class="bg-accent"
-    >
-      <q-toolbar v-ripple:primary="colorBar" class="shadow-4">
-        <q-btn
-          flat
-          round
-          dense
-          icon="menu"
-          color="white"
-          style="margin-right: 10px"
-          @click="drawer = !drawer"
-        />
-        <q-space />
-        <modal-new-institution
-          v-if="OpenModalNewInstitution"
-          :OpenModal="OpenModalNewInstitution"
-          v-on:closeModal="OpenModalNewInstitution = false"
-        />
-        <q-separator vertical />
-
-      </q-toolbar>
-
-    </q-header>
-    <q-drawer
-      v-model="drawer"
-      show-if-above
-      :width="230"
-      :mini="mini && !fixSidebar"
-      :breakpoint="500"
-      content-class="bg-primary"
-      content-style="overflow-x: hidden"
-    >
-      <q-btn
-        v-if="!mini"
-        flat
-        class="q-mt-lg"
-      >
-        <img src="~/assets/logo-nova-sem-seta-transparente.png" />
-      </q-btn>
-      <q-scroll-area
-        :style="
-          !mini
-            ? 'height: calc(100% - 175px); margin-top: 0px;'
-            : 'height: calc(100% - 175px); margin-top: 0px;'
-        "
-      >
-        <q-list padding>
-          <q-item
-            v-if="mini"
-            style="height: calc(100% - 175px);"
-          >
-          </q-item>
-          <q-item
-            v-for="(coluna) in colunas"
-            :key="coluna.url"
-            clickable
-            v-ripple
-            :to="coluna.url"
-            class="text-white"
-            active-class="bg-accent text-white class--active"
-            :disable="!user.InstitutionId && coluna.label === 'Minhas Turmas' || coluna.external"
-          >
-            <q-item-section side avatar class="row" v-if="!isMd">
-              <span class="text-white" style="font-size: 7pt">
-                <q-icon size="24px" class="justify-center" :name="coluna.icon" />
-              </span>
-            </q-item-section>
-
-            <q-item-section avatar v-else>
-              <q-icon :name="coluna.icon" />
-            </q-item-section>
-
-            <q-item-section>{{ coluna.label }}</q-item-section>
-          </q-item>
-        </q-list>
-      </q-scroll-area>
-
-      <q-item
-        class="text-white"
-        active-class="bg-accent text-white class--active"
-        to="/precisa-de-ajuda"
-      >
-        <q-item-section side avatar class="row" v-if="!isMd">
-          <span class="text-white" style="font-size: 7pt">
-            <q-icon size="24px" class="justify-center" name="mdi-help" />
-          </span>
-        </q-item-section>
-
-        <q-item-section avatar v-else>
-          <q-icon name="mdi-help" />
-        </q-item-section>
-
-        <q-item-section>Precisa de ajuda?</q-item-section>
-      </q-item>
-    </q-drawer> -->
   </div>
 </template>
 
@@ -128,16 +32,12 @@ export default {
     menuDrawer: () => import('src/components/utils/menu-drawer.vue')
   },
   data: () => ({
-    // filtros: true,
     text: '',
     mini: false,
     fixSidebar: false,
     OpenModalNewInstitution: false
   }),
   watch: {
-    // isMd (value) {
-    //   this.filtros = value ? false : true;
-    // }
   },
   methods: {
     sigla (user) {
@@ -147,18 +47,9 @@ export default {
 
       return nomeArray[0][0] + nomeArray[nomeArray.length - 1][0]
     }
-    // logout() {
-    //   localStorage.removeItem("token");
-    //   this.$router.push("/login");
-    // },
-    // showFiltro() {
-    //   return this.$route.path === "/turmas";
-    // }
   },
   computed: {
     ...mapGetters('login', ['user']),
-    // // ...mapGetters("parametros", ["empresas"]),
-    // ...mapGetters("utils", ["colorBar"]),
     drawer: {
       get () {
         return this.$store.getters['utils/getDrawer']

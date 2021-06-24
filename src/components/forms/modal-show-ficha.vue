@@ -17,7 +17,7 @@
               <q-input dense outlined v-model="paciente.cpf" label="CPF" mask="###.###.###-##" />
             </div>
             <div class="col-6">
-              <q-input dense outlined v-model="paciente.telefone" label="Telefone" v-mask="['(##)####-####', '(##)#####-####']" />
+              <q-input dense outlined v-model="paciente.phone" label="Telefone" v-mask="['(##)####-####', '(##)#####-####']" />
             </div>
             <div class="col-12">
               <q-input dense outlined v-model="paciente.externalFile" label="Pasta" />
@@ -34,7 +34,7 @@
             dense
             outline
             :color="paciente.active ? 'negative' : 'warning'"
-            :label="paciente.active ? 'Salvar e desativar' : 'Salvar e reativar'"
+            :label="paciente.active ? 'Editar e desativar' : 'Editar e reativar'"
           >
             <template v-slot:loading>
               <q-spinner color="primary" size=".8em" />
@@ -47,7 +47,7 @@
             dense
             outline
             color="positive"
-            label="Salvar"
+            label="Editar"
           >
             <template v-slot:loading>
               <q-spinner color="primary" size=".8em" />
@@ -90,7 +90,7 @@ export default {
       this.loadingSaving = true
       const ficha = {
         name: this.paciente.name,
-        telefone: this.paciente.telefone,
+        phone: this.paciente.phone,
         cpf: this.paciente.cpf,
         externalFile: this.paciente.externalFile
       }
@@ -135,7 +135,7 @@ export default {
           this.loadingMorto = true
           const ficha = {
             name: this.paciente.name,
-            telefone: this.paciente.telefone,
+            phone: this.paciente.phone,
             cpf: this.paciente.cpf,
             externalFile: this.paciente.externalFile,
             active: !active
@@ -185,7 +185,7 @@ export default {
     closeModal () {
       this.$emit('closeModal')
       this.paciente = null
-      this.$store.commit('fichas/setSelectedUserId', null)
+      this.$store.commit('forms/setSelectedUserId', null)
     }
   },
   computed: {
@@ -196,10 +196,10 @@ export default {
     },
     patientId: {
       get () {
-        return this.$store.getters['fichas/getSelectedUserId']
+        return this.$store.getters['forms/getSelectedUserId']
       },
       set (value) {
-        this.$store.commit('fichas/setSelectedUserId', value)
+        this.$store.commit('forms/setSelectedUserId', value)
       }
     }
   },

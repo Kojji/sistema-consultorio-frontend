@@ -4,9 +4,9 @@ import createPersistedState from 'vuex-persistedstate'
 
 import login from './login'
 import utils from './utils'
-import registro from './registro'
+import register from './register'
 import users from './users'
-import fichas from './fichas'
+import forms from './forms'
 // import example from './module-example'
 
 Vue.use(Vuex)
@@ -25,9 +25,9 @@ export default function (/* { ssrContext } */) {
     modules: {
       login,
       utils,
-      registro,
+      register,
       users,
-      fichas
+      forms
     },
     plugins: [createPersistedState()],
 
