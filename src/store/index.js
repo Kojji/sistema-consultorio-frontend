@@ -6,6 +6,7 @@ import login from './login'
 import utils from './utils'
 import registro from './registro'
 import users from './users'
+import fichas from './fichas'
 // import example from './module-example'
 
 Vue.use(Vuex)
@@ -25,7 +26,8 @@ export default function (/* { ssrContext } */) {
       login,
       utils,
       registro,
-      users
+      users,
+      fichas
     },
     plugins: [createPersistedState()],
 
