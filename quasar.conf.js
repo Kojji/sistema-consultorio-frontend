@@ -54,7 +54,7 @@ module.exports = function (ctx) {
             VUE_APP_URL_API: 'http://127.0.0.1:4000/api/v1'
           }
         : {
-            VUE_APP_URL_API: 'https://api..com.br/api/v1'
+            VUE_APP_URL_API: 'https://api.cadastrare.com.br/api/v1'
           },
       // Add dependencies for transpiling with Babel (Array of string/regex)
       // (from node_modules, which are by default not transpiled).

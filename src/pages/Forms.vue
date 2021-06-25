@@ -71,6 +71,10 @@
             <q-td>
               {{ props.row.cpf }}
             </q-td>
+            <q-td>
+              <q-icon v-if="props.row.emitReceipt" name="done" size="18px" color="positive" />
+              <q-icon v-else name="close" size="18px" color="negative" />
+            </q-td>
           </q-tr>
         </template>
         <template v-slot:bottom>
@@ -153,6 +157,14 @@ export default {
         field: row => row.cpf,
         format: val => `${val}`,
         sortable: true
+      },
+      {
+        name: 'emitReceipt',
+        label: 'Nota Fiscal',
+        align: 'left',
+        field: row => row.emitReceipt,
+        format: val => `${val}`,
+        sortable: false
       }
     ],
     pagination: {

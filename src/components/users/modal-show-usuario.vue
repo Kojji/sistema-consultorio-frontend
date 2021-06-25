@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="OpenModalUser" persistent>
-    <q-card style="width: 400px">
+    <q-card style="width: 600px">
       <q-card-section class="row items-center">
         <q-space />
         <q-btn icon="close" flat round dense @click="closeModal()" />
