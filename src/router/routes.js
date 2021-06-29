@@ -10,7 +10,8 @@ export default function () {
         { path: '', redirect: '/fichas' },
         { path: 'fichas', component: () => import('pages/Forms.vue') },
         { path: 'usuarios', component: () => import('src/pages/Users.vue') },
-        { path: 'perfil', component: () => import('pages/Profile.vue') }
+        { path: 'perfil', component: () => import('pages/Profile.vue') },
+        { path: 'consultas', component: () => import('pages/Agenda.vue') }
       ]
     },
     {

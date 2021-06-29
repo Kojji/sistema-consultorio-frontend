@@ -86,7 +86,7 @@
 export default {
   name: 'Login',
   meta: {
-    title: 'Casdatra-Re',
+    title: 'Cadastra-Re',
     titleTemplate: title => `${title} - Entre na sua Conta`
   },
   // beforeCreate () {

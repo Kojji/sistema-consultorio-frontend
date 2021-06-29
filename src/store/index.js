@@ -7,6 +7,7 @@ import utils from './utils'
 import register from './register'
 import users from './users'
 import forms from './forms'
+import agenda from './agenda'
 // import example from './module-example'
 
 Vue.use(Vuex)
@@ -27,7 +28,8 @@ export default function (/* { ssrContext } */) {
       utils,
       register,
       users,
-      forms
+      forms,
+      agenda
     },
     plugins: [createPersistedState()],
 
