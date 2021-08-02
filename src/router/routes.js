@@ -15,6 +15,13 @@ export default function () {
       ]
     },
     {
+      path: '/agenda/DraLuciene',
+      component: () => import('src/pages/AgendaLimited.vue'),
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
       path: '/login',
       component: () => import('src/pages/Login.vue'),
       meta: {

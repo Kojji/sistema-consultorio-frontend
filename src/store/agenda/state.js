@@ -1,5 +1,8 @@
 export default function () {
   return {
-    selectedDate: null
+    selectedDate: null,
+    editScope: null,
+    editEvent: {},
+    events: []
   }
 }

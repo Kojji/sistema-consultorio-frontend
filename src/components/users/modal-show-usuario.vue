@@ -342,7 +342,7 @@ export default {
     },
     getUser () {
       this.loadingUser = true
-      this.$axios.get('/users/' + this.userId)
+      this.$axios.get('/users/user/' + this.userId)
         .then(res => {
           if (res.data.success) {
             this.usuario = res.data.user

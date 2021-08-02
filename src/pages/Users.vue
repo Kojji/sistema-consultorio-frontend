@@ -123,7 +123,6 @@ export default {
   },
   data: () => ({
     OpenModalUser: false,
-    loading: false,
     filterConfirmed: true,
     users: [],
     columns: [
@@ -219,7 +218,7 @@ export default {
       }
     },
     getUsers () {
-      this.loading = true
+      this.$q.loading.show()
       this.$axios.get('/users', {
         params: {
           page: ++this.pagination.page,
@@ -233,7 +232,7 @@ export default {
           }
         })
         .finally(() => {
-          this.loading = false
+          this.$q.loading.hide()
         })
     },
     openUsuario (id) {

@@ -267,7 +267,7 @@ export default {
             birthday: this.usuario.birthday,
             cpf: this.usuario.cpf
           }
-          this.$axios.put('/users/' + this.user.id, user)
+          this.$axios.put('/users/user/' + this.user.id, user)
             .then(res => {
               if (res.data.success) {
                 this.$q.dialog({

@@ -5,7 +5,8 @@
         <div class="row">
           <div class="col-12 col-md-5 offset-md-6" :class="!$q.screen.lt.md ? 'offset-md-4' : 'offset-md-4'">
             <q-card class="bg-white">
-              <q-card-section class="text-center">
+              <q-card-section class="text-center text-h4">
+                Cadastra-Re
               </q-card-section>
 
               <q-card-section>

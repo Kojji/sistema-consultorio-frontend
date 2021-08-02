@@ -113,7 +113,6 @@ export default {
   data: () => ({
     OpenModalFicha: false,
     OpenModalNewFicha: false,
-    loading: false,
     filterActive: true,
     forms: [],
     search: '',
@@ -202,7 +201,7 @@ export default {
       this.getForms()
     },
     getForms () {
-      this.loading = true
+      this.$q.loading.show()
       this.$axios.get('/patients', {
         params: {
           page: ++this.pagination.page,
@@ -221,7 +220,7 @@ export default {
           }
         })
         .finally(() => {
-          this.loading = false
+          this.$q.loading.hide()
         })
     },
     openUsuario (id) {

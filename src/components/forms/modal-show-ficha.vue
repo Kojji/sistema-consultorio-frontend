@@ -273,7 +273,7 @@ export default {
     },
     getFicha () {
       this.loadingFicha = true
-      this.$axios.get('/patients/' + this.patientId)
+      this.$axios.get('/patients/patient/' + this.patientId)
         .then(res => {
           if (res.data.success) {
             this.paciente = res.data.user
