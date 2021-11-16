@@ -32,7 +32,7 @@
           </div>
 
           <q-space />
-          <q-input outlined v-model="search" @input="searchInput" dense label="Buscar" placeholder="CPF ou Nome" class="q-mr-md">
+          <q-input outlined v-model="search" @input="searchInput" dense label="Buscar" placeholder="CPF,Nome ou Pasta" class="q-mr-md">
             <template v-slot:prepend>
               <q-icon name="search"/>
             </template>
@@ -53,6 +53,70 @@
               </q-list>
             </q-menu>
           </q-btn>
+          <div class="col-12">
+            <q-expansion-item
+              style="border: 2px solid #10564F"
+              expand-separator
+              icon="reorder"
+              label="Ordenação e Listagem"
+              v-model="searchExpand"
+            >
+              <q-card>
+                <q-card-section class="row q-col-gutter-sm">
+                  <div class="col-4">
+                    <q-select
+                      label="Itens por página"
+                      v-model="itensPerPage"
+                      :options="optionsItensPerPage"
+                      outlined
+                      dense
+                    >
+                    </q-select>
+                  </div>
+                  <div class="col-4">
+                    <q-select
+                      label="Ordenar por"
+                      v-model="column"
+                      emit-value
+                      map-options
+                      :options="optionsListColumn"
+                      outlined
+                      dense
+                    >
+                    </q-select>
+                  </div>
+                  <div class="col-4">
+                    <q-select
+                      label="Ordem"
+                      v-model="order"
+                      emit-value
+                      map-options
+                      :options="optionsListOrder"
+                      outlined
+                      dense
+                    >
+                    </q-select>
+                  </div>
+                  <div class="col-12 row q-gutter-md justify-end">
+                    <q-btn
+                      outlined
+                      label="Limpar Filtros"
+                      color="primary"
+                      @click="limparFiltros()"
+                    >
+                    </q-btn>
+                    <q-btn
+                      outlined
+                      label="Ordenar"
+                      color="primary"
+                      @click="buscarPorFiltros()"
+                    >
+                    </q-btn>
+                  </div>
+                </q-card-section>
+              </q-card>
+            </q-expansion-item>
+          </div>
         </template>
         <template v-slot:body="props">
           <q-tr @click="openUsuario(props.row.id)" class="cursor-pointer" :props="props">
@@ -81,18 +145,47 @@
           <div />
         </template>
       </q-table>
+      <div class="col-12 row q-my-md justify-center items-center">
+        <q-btn
+          round
+          icon="navigate_before"
+          color="primary"
+          :disable="pagination.page <= 1"
+          @click="pagination.page--, repaginateForms()"
+          class="q-mr-sm"
+        >
+        </q-btn>
+        <q-input
+          dense
+          mask="######"
+          outlined
+          v-model="page"
+          :label="'Página( 1 a ' + Math.ceil(pagination.count/pagination.limit) + ' )'"
+          @change="goToPage"
+        >
+        </q-input>
+        <q-btn
+          round
+          icon="navigate_next"
+          color="primary"
+          :disable="!pagination.nextPage"
+          @click="pagination.page++, repaginateForms()"
+          class="q-ml-sm"
+        >
+        </q-btn>
+      </div>
       <modalShowFicha
         v-if="OpenModalFicha"
         :OpenModal="OpenModalFicha"
         ref="showUsuario"
         v-on:closeModal="OpenModalFicha = false"
-        v-on:repaginate="resetPagination(), getForms()"
+        v-on:repaginate="repaginateForms()"
       />
       <modalCreateFicha
         v-if="OpenModalNewFicha"
         :OpenModal="OpenModalNewFicha"
         v-on:closeModal="OpenModalNewFicha = false"
-        v-on:repaginate="resetPagination(), getForms()"
+        v-on:repaginate="repaginateForms()"
         v-on:openModalCreatedFicha="id => openUsuario(id)"
       />
     </div>
@@ -116,6 +209,11 @@ export default {
     filterActive: true,
     forms: [],
     search: '',
+    order: 'ASC',
+    column: 'name',
+    itensPerPage: 20,
+    searchExpand: false,
+    page: 1,
     columns: [
       {
         name: 'id',
@@ -123,7 +221,7 @@ export default {
         align: 'left',
         field: row => row.id,
         format: val => `${val}`,
-        sortable: true
+        sortable: false
       },
       {
         name: 'name',
@@ -131,7 +229,7 @@ export default {
         align: 'left',
         field: row => row.name,
         format: val => `${val}`,
-        sortable: true
+        sortable: false
       },
       {
         name: 'externalFile',
@@ -147,7 +245,7 @@ export default {
         align: 'left',
         field: row => row.phone,
         format: val => `${val}`,
-        sortable: true
+        sortable: false
       },
       {
         name: 'cpf',
@@ -155,7 +253,7 @@ export default {
         align: 'left',
         field: row => row.cpf,
         format: val => `${val}`,
-        sortable: true
+        sortable: false
       },
       {
         name: 'emitReceipt',
@@ -167,13 +265,44 @@ export default {
       }
     ],
     pagination: {
+      active: true,
+      search: '',
+      column: 'name',
+      order: 'ASC',
       count: 0,
       limit: 20,
       nextPage: true,
       offset: 0,
-      page: 0
+      page: 1
     },
     label: 'Arquivo Ativo',
+    optionsListColumn: [
+      {
+        label: 'ID',
+        value: 'id'
+      },
+      {
+        label: 'Nome',
+        value: 'name'
+      },
+      {
+        label: 'Pasta',
+        value: 'externalFile'
+      }
+    ],
+    optionsItensPerPage: [
+      20, 30, 40, 60
+    ],
+    optionsListOrder: [
+      {
+        label: 'Crescente',
+        value: 'ASC'
+      },
+      {
+        label: 'Decrescente',
+        value: 'DESC'
+      }
+    ],
     options: [
       {
         label: 'Arquivo Ativo',
@@ -196,68 +325,101 @@ export default {
     }
   },
   methods: {
-    searchInput () {
-      this.resetPagination()
-      this.getForms()
-    },
-    getForms () {
+    repaginateForms () {
       this.$q.loading.show()
+      this.forms = []
       this.$axios.get('/patients', {
         params: {
-          page: ++this.pagination.page,
-          active: this.filterActive,
-          search: this.search
+          page: this.pagination.page,
+          active: this.pagination.active,
+          search: this.pagination.search === '' ? null : this.pagination.search,
+          limit: this.pagination.limit,
+          column: this.pagination.column,
+          order: this.pagination.order
         }
+      }).then((res) => {
+        if (res.data.success) {
+          this.forms = res.data.patients
+          this.pagination = res.data.pagination
+          this.page = res.data.pagination.page
+        }
+      }).finally(() => {
+        this.$q.loading.hide()
       })
-        .then((res) => {
-          if (res.data.success) {
-            if (this.pagination.page === 1) {
-              this.forms = res.data.patients
-            } else {
-              this.forms = this.forms.concat(res.data.patients)
-            }
-            this.pagination = res.data.pagination
-          }
-        })
-        .finally(() => {
-          this.$q.loading.hide()
-        })
     },
-    openUsuario (id) {
-      this.userId = id
-      this.OpenModalFicha = true
-      // this.$refs.showUsuario.getUser()
+    searchInput () {
+      this.resetPagination()
+      this.pagination.search = this.search
+      this.repaginateForms()
     },
-    resetPagination () {
+    limparFiltros () {
+      this.column = 'name'
+      this.order = 'ASC'
+      this.itensPerPage = 20
       this.pagination = {
+        active: true,
+        search: '',
+        column: 'name',
+        order: 'ASC',
         count: 0,
         limit: 20,
         nextPage: true,
         offset: 0,
-        page: 0
+        page: 1
       }
-      this.users = []
+      this.repaginateForms()
+      this.searchExpand = false
+    },
+    buscarPorFiltros () {
+      this.pagination.column = this.column
+      this.pagination.order = this.order
+      this.pagination.limit = this.itensPerPage
+      this.pagination.page = 1
+      this.pagination.search = this.search
+      this.repaginateForms()
+      this.searchExpand = false
+    },
+    openUsuario (id) {
+      this.userId = id
+      this.OpenModalFicha = true
     },
     changeFilter (opt) {
       this.label = opt.label
       this.filterActive = opt.value
       this.resetPagination()
-      this.getForms()
+      this.pagination.active = opt.value
+      this.repaginateForms()
     },
-    handleScroll () {
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        this.getForms()
+    goToPage () {
+      if (this.page > Math.ceil(this.pagination.count / this.pagination.limit) && this.pagination.page !== this.page) {
+        this.$q.notify({
+          message: 'Página Não encontrada',
+          color: 'red',
+          position: 'top-right'
+        })
+      } else {
+        this.pagination.page = this.page
+        this.repaginateForms()
       }
+    },
+    resetPagination () {
+      this.pagination = {
+        active: true,
+        search: '',
+        column: 'name',
+        order: 'ASC',
+        count: 0,
+        limit: 20,
+        nextPage: true,
+        offset: 0,
+        page: 1
+      }
+      this.forms = []
     }
   },
   mounted () {
-    window.addEventListener('scroll', this.handleScroll)
     this.resetPagination()
-    this.getForms()
-  },
-  beforeRouteLeave (to, from, next) {
-    window.removeEventListener('scroll', this.handleScroll)
-    next()
+    this.repaginateForms()
   }
 }
 </script>

@@ -157,7 +157,7 @@ export default {
         emitReceipt: this.paciente.emitReceipt,
         active: this.paciente.active
       }
-      this.$axios.put('patients/' + this.paciente.id, ficha)
+      this.$axios.put('patients/patient/' + this.paciente.id, ficha)
         .then(res => {
           if (res.data.success) {
             this.$q.notify({
@@ -241,7 +241,7 @@ export default {
             emitReceipt: this.paciente.emitReceipt,
             active: !active
           }
-          this.$axios.put('patients/' + this.paciente.id, ficha)
+          this.$axios.put('patients/patient/' + this.paciente.id, ficha)
             .then(res => {
               if (res.data.success) {
                 this.$q.notify({

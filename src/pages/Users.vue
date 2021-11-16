@@ -218,22 +218,24 @@ export default {
       }
     },
     getUsers () {
-      this.$q.loading.show()
-      this.$axios.get('/users', {
-        params: {
-          page: ++this.pagination.page,
-          confirmed: this.filterConfirmed
-        }
-      })
-        .then((res) => {
-          if (res.data.success) {
-            this.users = this.users.concat(res.data.users)
-            this.pagination = res.data.pagination
+      if (this.pagination.nextPage) {
+        this.$q.loading.show()
+        this.$axios.get('/users', {
+          params: {
+            page: ++this.pagination.page,
+            confirmed: this.filterConfirmed
           }
         })
-        .finally(() => {
-          this.$q.loading.hide()
-        })
+          .then((res) => {
+            if (res.data.success) {
+              this.users = this.users.concat(res.data.users)
+              this.pagination = res.data.pagination
+            }
+          })
+          .finally(() => {
+            this.$q.loading.hide()
+          })
+      }
     },
     openUsuario (id) {
       this.userId = id
