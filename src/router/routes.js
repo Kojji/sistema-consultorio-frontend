@@ -10,17 +10,17 @@ export default function () {
         { path: '', redirect: '/fichas' },
         { path: 'fichas', component: () => import('pages/Forms.vue') },
         { path: 'usuarios', component: () => import('src/pages/Users.vue') },
-        { path: 'perfil', component: () => import('pages/Profile.vue') },
-        { path: 'consultas', component: () => import('pages/Agenda.vue') }
+        { path: 'perfil', component: () => import('pages/Profile.vue') }
+        // { path: 'consultas', component: () => import('pages/Agenda.vue') }
       ]
     },
-    {
-      path: '/agenda/DraLuciene',
-      component: () => import('src/pages/AgendaLimited.vue'),
-      meta: {
-        requiresAuth: false
-      }
-    },
+    // {
+    //   path: '/agenda/DraLuciene',
+    //   component: () => import('src/pages/AgendaLimited.vue'),
+    //   meta: {
+    //     requiresAuth: false
+    //   }
+    // },
     {
       path: '/login',
       component: () => import('src/pages/Login.vue'),

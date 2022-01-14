@@ -167,6 +167,7 @@ export default {
             })
             this.$emit('repaginate')
           }
+          this.closeModal()
         })
         .catch((err) => {
           this.$q.notify({
@@ -177,7 +178,6 @@ export default {
         })
         .finally(() => {
           this.loadingSaving = false
-          this.closeModal()
         })
     },
     procuraCEP (value) {
